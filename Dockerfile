@@ -1,4 +1,5 @@
-FROM openjdk:17
-ADD target/LeaderElectionMaven-1.0-SNAPSHOT-jar-with-dependencies.jar LeaderElectionMaven-1.0-SNAPSHOT-jar-with-dependencies.jar
-ENTRYPOINT ["java", "-jar","LeaderElectionMaven-1.0-SNAPSHOT-jar-with-dependencies"]
-EXPOSE 8080
+FROM maven:3.8.4-openjdk-17
+COPY . /app
+WORKDIR /app
+RUN mvn clean compile package
+ENTRYPOINT ["java", "-jar", "target/LeaderElectionMaven-1.0-SNAPSHOT-jar-with-dependencies.jar"]
